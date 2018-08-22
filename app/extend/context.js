@@ -2,12 +2,23 @@
 'use strict';
 
 const { superstruct } = require('superstruct');
-const types = require('../types');
-const struct = superstruct({
-    types
-});
+const TYPES = Symbol('Context#TYPES');
+const PLUGINNAME = 'superValidator';
 
 module.exports = {
+    /**
+     * 通过配置扩展 superstruct 的验证支持类型
+     * @returns {*}
+     */
+    get struct() {
+        if(!this[TYPES]) {
+            this[TYPES] = superstruct({
+                types: this.app.config[PLUGINNAME].types || {}
+            });
+        }
+        return this[TYPES];
+    },
+
     /**
      * 参数校验
      * @param rule 规则
@@ -16,7 +27,7 @@ module.exports = {
      * types 中间件拦截
      */
     verify(rule, data) {
-        const Model = struct(rule);
+        const Model = this.struct(rule);
         return Model(data);
     }
 };
