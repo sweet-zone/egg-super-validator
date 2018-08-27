@@ -12,6 +12,7 @@ exports.superValidator = {
     // 自定义 superstruct types
     types: {},
     // 出现错误时的处理
+    // middleware 设置为 false 时不生效
     formatError (ctx, err) {
         ctx.status = 200;
         ctx.body = {
