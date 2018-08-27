@@ -9,6 +9,6 @@ module.exports = () => async function validator(ctx, next) {
     try {
         await next();
     } catch (e) {
-        config.formatError && ctx.formatError(ctx, e);
+        config.formatError && config.formatError(ctx, e);
     }
 };
