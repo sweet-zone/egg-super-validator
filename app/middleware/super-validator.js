@@ -9,9 +9,6 @@ module.exports = () => async function validator(ctx, next) {
     try {
         await next();
     } catch (e) {
-        ctx.body = {
-            code: 400,
-            desc: config.env === 'prod' ? '参数错误' : e.message
-        };
+        config.formatError && ctx.formatError(ctx, e);
     }
 };

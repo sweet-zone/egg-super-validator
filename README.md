@@ -1,8 +1,6 @@
 # egg-super-validator
 
-<!--
-Description here.
--->
+egg controller 参数验证中间件
 
 ## Install
 
@@ -21,6 +19,25 @@ exports.superValidator = {
 ```
 
 ## Configuration
+
+```js
+exports.superValidator = {
+    // 默认作为中间件, 如果不需要则设置为 false
+    // 在 config.onerror 中统一错误处理
+    middleware: true,
+    // 自定义 superstruct types
+    types: {},
+    // 出现错误时的处理
+    formatError (ctx, err) {
+        ctx.status = 200;
+        ctx.body = {
+            code: 400,
+            desc: err.message
+        }
+    },
+};
+```
+
 
 ```js
 // {app_root}/config/config.default.js
@@ -48,7 +65,7 @@ see [config/config.default.js](config/config.default.js) for more detail.
 
 ## Questions & Suggestions
 
-Please open an issue [here](https://github.com/eggjs/egg/issues).
+Please open an issue [here](https://github.com/zjzhome/egg-super-validator/issues).
 
 ## License
 

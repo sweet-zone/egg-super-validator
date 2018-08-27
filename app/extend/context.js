@@ -27,7 +27,12 @@ module.exports = {
      * types 中间件拦截
      */
     verify(rule, data) {
+        // 只校验 rule 中指定的字段
+        let ruleData = {};
+        for(let key in rule) {
+            ruleData[key] = data[key];
+        }
         const Model = this.struct(rule);
-        return Model(data);
+        return Model(ruleData);
     }
 };

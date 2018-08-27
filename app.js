@@ -2,5 +2,7 @@
 'use strict';
 
 module.exports = app => {
-    app.config.coreMiddlewares.push('superValidator');
+    if(app.config.superValidator.middleware) {
+        app.config.coreMiddlewares.push('superValidator');
+    }
 };
